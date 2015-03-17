@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Покупка</title>
+    </head>
+<body>
+    <div>        
+        <form method="post" action="Array">
+            <h3>Форма оформления 1</h3>
+            <input type="text" name="firstName" value="<%= ViewData['value'] %>" />
+            <h3>Вопрос @Session["Question_ID"] из @ViewBag.Question_cnt :</h3>
+            <h3> @ViewBag.Question</h3>
+           
+                @{
+                    int i = 0;
+                    foreach (var item in ViewBag.Answer_list)
+                    {
+                        if (item.type == "CB        ")
+                        {
+                            i++;
+                            // <h4>It is checkbox, baby</h4>
+                            //  <input type="checkbox" name="CB_@i" value="@item.answer">@item.answer  <br />
+                            <input type="checkbox" name="CB" value="@item.answer" >@item.answer  <br />
+                    
+                        }
+                        if (item.type == "CB_TB     ")
+                        {
+                            i++;
+                            // <h4>It is checkbox-textbox, baby</h4>
+                            // <input type="checkbox" name="CB_@i" value="@item.answer">@item.answer
+                            // <input type="text" name="CB_TB_@i" /> <br />
+                            <input type="checkbox" name="CB" value="@item.answer">@item.answer
+                            <input type="text" name="CB_TB" /> <br />
+
+
+                        }
+                        if (item.type == "TB        ")
+                        {
+                            i++;
+                            //  <h4>It is textbox, baby</h4>
+                            // <input type="text" name="TB_@i" value="поле для заполения" />
+                            <input type="text" name="TB" value="поле для заполения" />
+                   
+                            //  <input type="text" name="TB_@i" /> <br />
+                            <input type="text" name="TB" /> <br />
+                        }
+
+                    }
+                }
+            
+                <h4>@Html.Label("Укажите свой вариант") @Html.TextBox("Custom") </h4>
+            </form>
+        <form method="post" action="Press">
+            <button name="action" value="Prev">Назад</button>
+            <button name="action" value="Next">Далее</button>
+        </form>
+            
+            
+        
+    </div>
+</body>
+</html>
