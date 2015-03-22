@@ -13,6 +13,7 @@ namespace My_First_APP.Models
     }
     public class Ans
     {     
+
       public  int Q_ID;
       public  string answer;
       public  string type;
@@ -28,6 +29,9 @@ namespace My_First_APP.Models
       public int get_Q_ID()
       { return Q_ID; }
       public string get_type()
-      { return type; }
+      {
+          
+          return null;
+      }
     }
 }

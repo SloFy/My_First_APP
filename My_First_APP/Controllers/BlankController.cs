@@ -8,14 +8,18 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using My_First_APP.Models;
+using System.Data.Entity;
 namespace My_First_APP.Controllers
 {
     public class BlankController : Controller
     {
+       
         //
         // GET: /Blank/
         public ActionResult Index()
         {
+            
+
             return View();
         }
         public ActionResult Input()
@@ -81,7 +85,7 @@ namespace My_First_APP.Controllers
         [HttpPost]
         public ActionResult Press(string action)
         {
-
+           
             if (action == "Next")
                 Next_question();
             if (action == "Prev")

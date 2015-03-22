@@ -112,12 +112,12 @@ window.Modernizr = (function( window, document, undefined ) {
 
     slice = classes.slice,
 
-    featureName, // used in testing loop
+    featureLogin, // used in testing loop
 
 
     /*>>teststyles*/
     // Inject element with style element and some CSS rules
-    injectElementWithStyles = function( rule, callback, nodes, testnames ) {
+    injectElementWithStyles = function( rule, callback, nodes, testLogins ) {
 
       var style, ret, node, docOverflow,
           div = document.createElement('div'),
@@ -131,7 +131,7 @@ window.Modernizr = (function( window, document, undefined ) {
           // This also allows the method to scale for unspecified uses
           while ( nodes-- ) {
               node = document.createElement('div');
-              node.id = testnames ? testnames[nodes] : mod + (nodes + 1);
+              node.id = testLogins ? testLogins[nodes] : mod + (nodes + 1);
               div.appendChild(node);
           }
       }
@@ -207,19 +207,19 @@ window.Modernizr = (function( window, document, undefined ) {
     //   ...
     isEventSupported = (function() {
 
-      var TAGNAMES = {
+      var TAGLoginS = {
         'select': 'input', 'change': 'input',
         'submit': 'form', 'reset': 'form',
         'error': 'img', 'load': 'img', 'abort': 'img'
       };
 
-      function isEventSupported( eventName, element ) {
+      function isEventSupported( eventLogin, element ) {
 
-        element = element || document.createElement(TAGNAMES[eventName] || 'div');
-        eventName = 'on' + eventName;
+        element = element || document.createElement(TAGLoginS[eventLogin] || 'div');
+        eventLogin = 'on' + eventLogin;
 
         // When using `setAttribute`, IE skips "unload", WebKit skips "unload" and "resize", whereas `in` "catches" those
-        var isSupported = eventName in element;
+        var isSupported = eventLogin in element;
 
         if ( !isSupported ) {
           // If it has no `setAttribute` (i.e. doesn't implement Node interface), try generic element
@@ -227,14 +227,14 @@ window.Modernizr = (function( window, document, undefined ) {
             element = document.createElement('div');
           }
           if ( element.setAttribute && element.removeAttribute ) {
-            element.setAttribute(eventName, '');
-            isSupported = is(element[eventName], 'function');
+            element.setAttribute(eventLogin, '');
+            isSupported = is(element[eventLogin], 'function');
 
             // If property was created, "remove it" (by setting value to `undefined`)
-            if ( !is(element[eventName], 'undefined') ) {
-              element[eventName] = undefined;
+            if ( !is(element[eventLogin], 'undefined') ) {
+              element[eventLogin] = undefined;
             }
-            element.removeAttribute(eventName);
+            element.removeAttribute(eventLogin);
           }
         }
 
@@ -339,7 +339,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // testProps is a generic CSS / DOM property test.
 
     // In testing support for a given CSS property, it's legit to test:
-    //    `elem.style[styleName] !== undefined`
+    //    `elem.style[styleLogin] !== undefined`
     // If the property is supported it will return an empty string,
     // if unsupported it will return undefined.
 
@@ -347,7 +347,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // on our modernizr element, but instead just testing undefined vs
     // empty string.
 
-    // Because the testing of the CSS property names (with "-", as
+    // Because the testing of the CSS property Logins (with "-", as
     // opposed to the camelCase DOM properties) is non-portable and
     // non-standard but works in WebKit and IE (but not Gecko or Opera),
     // we explicitly reject properties with dashes so that authors
@@ -375,7 +375,7 @@ window.Modernizr = (function( window, document, undefined ) {
             var item = obj[props[i]];
             if ( item !== undefined) {
 
-                // return the property name as a string
+                // return the property Login as a string
                 if (elem === false) return props[i];
 
                 // let's bind a function
@@ -528,7 +528,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // Per 1.6:
     // This used to be Modernizr.historymanagement but the longer
-    // name has been deprecated in favor of a shorter and property-matching one.
+    // Login has been deprecated in favor of a shorter and property-matching one.
     // The old API is still available in 1.6, but as of 2.0 will throw a warning,
     // and in the first release thereafter disappear entirely.
     tests['history'] = function() {
@@ -630,7 +630,7 @@ window.Modernizr = (function( window, document, undefined ) {
     //   a single property at a time
     //   daneden.me/2011/12/putting-up-with-androids-bullshit/
     tests['cssanimations'] = function() {
-        return testPropsAll('animationName');
+        return testPropsAll('animationLogin');
     };
 
 
@@ -966,12 +966,12 @@ window.Modernizr = (function( window, document, undefined ) {
     for ( var feature in tests ) {
         if ( hasOwnProp(tests, feature) ) {
             // run the test, throw the return value into the Modernizr,
-            //   then based on that boolean, define an appropriate className
+            //   then based on that boolean, define an appropriate classLogin
             //   and push it into an array of classes we'll join later.
-            featureName  = feature.toLowerCase();
-            Modernizr[featureName] = tests[feature]();
+            featureLogin  = feature.toLowerCase();
+            Modernizr[featureLogin] = tests[feature]();
 
-            classes.push((Modernizr[featureName] ? '' : 'no-') + featureName);
+            classes.push((Modernizr[featureLogin] ? '' : 'no-') + featureLogin);
         }
     }
 
@@ -984,7 +984,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /**
      * addTest allows the user to define their own feature tests
      * the result will be added onto the Modernizr object,
-     * as well as an appropriate className set on the html element
+     * as well as an appropriate classLogin set on the html element
      *
      * @param feature - String naming the feature
      * @param test - Function returning true if feature is supported, false if not
@@ -1004,7 +1004,7 @@ window.Modernizr = (function( window, document, undefined ) {
            // we're going to quit if you're trying to overwrite an existing test
            // if we were to allow it, we'd do this:
            //   var re = new RegExp("\\b(no-)?" + feature + "\\b");
-           //   docElement.className = docElement.className.replace( re, '' );
+           //   docElement.classLogin = docElement.classLogin.replace( re, '' );
            // but, no rly, stuff 'em.
            return Modernizr;
          }
@@ -1012,7 +1012,7 @@ window.Modernizr = (function( window, document, undefined ) {
          test = typeof test == 'function' ? test() : test;
 
          if (typeof enableClasses !== "undefined" && enableClasses) {
-           docElement.className += ' ' + (test ? '' : 'no-') + feature;
+           docElement.classLogin += ' ' + (test ? '' : 'no-') + feature;
          }
          Modernizr[feature] = test;
 
@@ -1042,7 +1042,7 @@ window.Modernizr = (function( window, document, undefined ) {
       /** Detect whether the browser supports default html5 styles */
       var supportsHtml5Styles;
 
-      /** Name of the expando, to work with multiple documents or to re-shiv one document */
+      /** Login of the expando, to work with multiple documents or to re-shiv one document */
       var expando = '_html5shiv';
 
       /** The id for the the documents expando */
@@ -1089,7 +1089,7 @@ window.Modernizr = (function( window, document, undefined ) {
        */
       function addStyleSheet(ownerDocument, cssText) {
         var p = ownerDocument.createElement('p'),
-            parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.documentElement;
+            parent = ownerDocument.getElementsByTagLogin('head')[0] || ownerDocument.documentElement;
 
         p.innerHTML = 'x<style>' + cssText + '</style>';
         return parent.insertBefore(p.lastChild, parent.firstChild);
@@ -1098,7 +1098,7 @@ window.Modernizr = (function( window, document, undefined ) {
       /**
        * Returns the value of `html5.elements` as an array.
        * @private
-       * @returns {Array} An array of shived element node names.
+       * @returns {Array} An array of shived element node Logins.
        */
       function getElements() {
         var elements = html5.elements;
@@ -1123,40 +1123,40 @@ window.Modernizr = (function( window, document, undefined ) {
       }
 
       /**
-       * returns a shived element for the given nodeName and document
+       * returns a shived element for the given nodeLogin and document
        * @memberOf html5
-       * @param {String} nodeName name of the element
+       * @param {String} nodeLogin Login of the element
        * @param {Document} ownerDocument The context document.
        * @returns {Object} The shived element.
        */
-      function createElement(nodeName, ownerDocument, data){
+      function createElement(nodeLogin, ownerDocument, data){
         if (!ownerDocument) {
             ownerDocument = document;
         }
         if(supportsUnknownElements){
-            return ownerDocument.createElement(nodeName);
+            return ownerDocument.createElement(nodeLogin);
         }
         if (!data) {
             data = getExpandoData(ownerDocument);
         }
         var node;
 
-        if (data.cache[nodeName]) {
-            node = data.cache[nodeName].cloneNode();
-        } else if (saveClones.test(nodeName)) {
-            node = (data.cache[nodeName] = data.createElem(nodeName)).cloneNode();
+        if (data.cache[nodeLogin]) {
+            node = data.cache[nodeLogin].cloneNode();
+        } else if (saveClones.test(nodeLogin)) {
+            node = (data.cache[nodeLogin] = data.createElem(nodeLogin)).cloneNode();
         } else {
-            node = data.createElem(nodeName);
+            node = data.createElem(nodeLogin);
         }
 
         // Avoid adding some elements to fragments in IE < 9 because
-        // * Attributes like `name` or `type` cannot be set/changed once an element
+        // * Attributes like `Login` or `type` cannot be set/changed once an element
         //   is inserted into a document/fragment
         // * Link elements with `src` attributes that are inaccessible, as with
         //   a 403 response, will cause the tab/window to crash
         // * Script elements appended to fragments will execute when their `src`
         //   or `text` property is set
-        return node.canHaveChildren && !reSkip.test(nodeName) ? data.frag.appendChild(node) : node;
+        return node.canHaveChildren && !reSkip.test(nodeLogin) ? data.frag.appendChild(node) : node;
       }
 
       /**
@@ -1198,22 +1198,22 @@ window.Modernizr = (function( window, document, undefined ) {
         }
 
 
-        ownerDocument.createElement = function(nodeName) {
+        ownerDocument.createElement = function(nodeLogin) {
           //abort shiv
           if (!html5.shivMethods) {
-              return data.createElem(nodeName);
+              return data.createElem(nodeLogin);
           }
-          return createElement(nodeName, ownerDocument, data);
+          return createElement(nodeLogin, ownerDocument, data);
         };
 
         ownerDocument.createDocumentFragment = Function('h,f', 'return function(){' +
           'var n=f.cloneNode(),c=n.createElement;' +
           'h.shivMethods&&(' +
             // unroll the `createElement` calls
-            getElements().join().replace(/\w+/g, function(nodeName) {
-              data.createElem(nodeName);
-              data.frag.createElement(nodeName);
-              return 'c("' + nodeName + '")';
+            getElements().join().replace(/\w+/g, function(nodeLogin) {
+              data.createElem(nodeLogin);
+              data.frag.createElement(nodeLogin);
+              return 'c("' + nodeLogin + '")';
             }) +
           ');return n}'
         )(html5, data.frag);
@@ -1261,7 +1261,7 @@ window.Modernizr = (function( window, document, undefined ) {
       var html5 = {
 
         /**
-         * An array or space separated string of node names of the elements to shiv.
+         * An array or space separated string of node Logins of the elements to shiv.
          * @memberOf html5
          * @type Array|String
          */
@@ -1349,7 +1349,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /*>>testprop*/
     // Modernizr.testProp() investigates whether a given style property is recognized
-    // Note that the property names must be provided in the camelCase variant.
+    // Note that the property Logins must be provided in the camelCase variant.
     // Modernizr.testProp('pointerEvents')
     Modernizr.testProp      = function(prop){
         return testProps([prop]);
@@ -1359,7 +1359,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /*>>testallprops*/
     // Modernizr.testAllProps() investigates whether a given style property,
     //   or any of its vendor-prefixed variants, is recognized
-    // Note that the property names must be provided in the camelCase variant.
+    // Note that the property Logins must be provided in the camelCase variant.
     // Modernizr.testAllProps('boxSizing')
     Modernizr.testAllProps  = testPropsAll;
     /*>>testallprops*/
@@ -1373,7 +1373,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     /*>>prefixed*/
-    // Modernizr.prefixed() returns the prefixed or nonprefixed property name variant of your input
+    // Modernizr.prefixed() returns the prefixed or nonprefixed property Login variant of your input
     // Modernizr.prefixed('boxSizing') // 'MozBoxSizing'
 
     // Properties must be passed as dom-style camelcase, rather than `box-sizing` hypentated style.
@@ -1383,14 +1383,14 @@ window.Modernizr = (function( window, document, undefined ) {
 
     // If you're trying to ascertain which transition end event to bind to, you might do something like...
     //
-    //     var transEndEventNames = {
+    //     var transEndEventLogins = {
     //       'WebkitTransition' : 'webkitTransitionEnd',
     //       'MozTransition'    : 'transitionend',
     //       'OTransition'      : 'oTransitionEnd',
     //       'msTransition'     : 'MSTransitionEnd',
     //       'transition'       : 'transitionend'
     //     },
-    //     transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
+    //     transEndEventLogin = transEndEventLogins[ Modernizr.prefixed('transition') ];
 
     Modernizr.prefixed      = function(prop, obj, elem){
       if(!obj) {
@@ -1405,7 +1405,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
     /*>>cssclasses*/
     // Remove "no-js" class from <html> element, if it exists:
-    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2') +
+    docElement.classLogin = docElement.classLogin.replace(/(^|\s)no-js(\s|$)/, '$1$2') +
 
                             // Add the new classes to the <html> element.
                             (enableClasses ? ' js ' + classes.join(' ') : '');

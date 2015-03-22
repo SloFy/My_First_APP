@@ -66,9 +66,9 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 		appendedEls 	= [],
 		parsedSheets 	= {},
 		resizeThrottle	= 30,
-		head 			= doc.getElementsByTagName( "head" )[0] || docElem,
-		base			= doc.getElementsByTagName( "base" )[0],
-		links			= head.getElementsByTagName( "link" ),
+		head 			= doc.getElementsByTagLogin( "head" )[0] || docElem,
+		base			= doc.getElementsByTagLogin( "base" )[0],
+		links			= head.getElementsByTagLogin( "link" ),
 		requestQueue	= [],
 		
 		//loop stylesheets, send text content to translate
@@ -218,9 +218,9 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 		
 		//enable/disable styles
 		applyMedia			= function( fromResize ){
-			var name		= "clientWidth",
-				docElemProp	= docElem[ name ],
-				currWidth 	= doc.compatMode === "CSS1Compat" && docElemProp || doc.body[ name ] || docElemProp,
+			var Login		= "clientWidth",
+				docElemProp	= docElem[ Login ],
+				currWidth 	= doc.compatMode === "CSS1Compat" && docElemProp || doc.body[ Login ] || docElemProp,
 				styleBlocks	= {},
 				lastLink	= links[ links.length-1 ],
 				now 		= (new Date()).getTime();

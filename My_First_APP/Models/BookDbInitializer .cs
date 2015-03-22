@@ -9,9 +9,9 @@ namespace My_First_APP.Models
     {
         protected override void Seed(BookContext db)
         {
-            db.Books.Add(new Book { Name = "Война и мир", Author = "Л. Толстой", Price = 220 });
-            db.Books.Add(new Book { Name = "Отцы и дети", Author = "И. Тургенев", Price = 180 });
-            db.Books.Add(new Book { Name = "Чайка", Author = "А. Чехов", Price = 150 });
+            db.Books.Add(new Book { Login = "Война и мир", Author = "Л. Толстой", Price = 220 });
+            db.Books.Add(new Book { Login = "Отцы и дети", Author = "И. Тургенев", Price = 180 });
+            db.Books.Add(new Book { Login = "Чайка", Author = "А. Чехов", Price = 150 });
 
             base.Seed(db);
         }

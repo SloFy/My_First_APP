@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Добро пожаловать на страницу авторизации!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model My_First_APP.Models.LoginModel
+
+<h2>@ViewBag.Title.</h2>
+
+    
+           @using (Html.BeginForm("Login", "NewAccount", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Login, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Login)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Вход" class="btn btn-default" />
+            </div>
+        </div>
+        <p>
+            @Html.ActionLink("Забыли пароль?", "ForgotPassword")
+        </p>
+        <p>
+            @Html.ActionLink("Зарегистрируйтесь", "Registration"), если у вас нет локальной учетной записи.
+        </p>
+        
+    </div>
+        
+    
+
+
+            }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

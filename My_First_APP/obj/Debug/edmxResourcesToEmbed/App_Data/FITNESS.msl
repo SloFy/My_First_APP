@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище FITNESSModelContainer" CdmEntityContainer="FITNESSEntities">
+    <EntitySetMapping Name="Account">
+      <EntityTypeMapping TypeName="FITNESSModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Blank">
+      <EntityTypeMapping TypeName="FITNESSModel.Blank">
+        <MappingFragment StoreEntitySet="Blank">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BlankType">
+      <EntityTypeMapping TypeName="FITNESSModel.BlankType">
+        <MappingFragment StoreEntitySet="BlankType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BlankTypeCharacteristic">
+      <EntityTypeMapping TypeName="FITNESSModel.BlankTypeCharacteristic">
+        <MappingFragment StoreEntitySet="BlankTypeCharacteristic">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BalnkTypeId" ColumnName="BalnkTypeId" />
+          <ScalarProperty Name="CharacterId" ColumnName="CharacterId" />
+          <ScalarProperty Name="DiseaseId" ColumnName="DiseaseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Characterisitcs">
+      <EntityTypeMapping TypeName="FITNESSModel.Characterisitcs">
+        <MappingFragment StoreEntitySet="Characterisitcs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CharacteristicsValue">
+      <EntityTypeMapping TypeName="FITNESSModel.CharacteristicsValue">
+        <MappingFragment StoreEntitySet="CharacteristicsValue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="CharID" ColumnName="CharID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CurrentCharacteristicsValue">
+      <EntityTypeMapping TypeName="FITNESSModel.CurrentCharacteristicsValue">
+        <MappingFragment StoreEntitySet="CurrentCharacteristicsValue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="BlankId" ColumnName="BlankId" />
+          <ScalarProperty Name="CharId" ColumnName="CharId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CurrentDiseaseValue">
+      <EntityTypeMapping TypeName="FITNESSModel.CurrentDiseaseValue">
+        <MappingFragment StoreEntitySet="CurrentDiseaseValue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="BlankId" ColumnName="BlankId" />
+          <ScalarProperty Name="DisId" ColumnName="DisId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diseases">
+      <EntityTypeMapping TypeName="FITNESSModel.Diseases">
+        <MappingFragment StoreEntitySet="Diseases">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiseasesValue">
+      <EntityTypeMapping TypeName="FITNESSModel.DiseasesValue">
+        <MappingFragment StoreEntitySet="DiseasesValue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="DisId" ColumnName="DisId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="FITNESSModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="FITNESSModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

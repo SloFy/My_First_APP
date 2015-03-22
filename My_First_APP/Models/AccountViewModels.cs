@@ -5,8 +5,8 @@ namespace My_First_APP.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
-        public string UserName { get; set; }
+        [Display(Name = "Логин")]
+        public string Login { get; set; }
     }
 
     public class ManageUserViewModel
@@ -32,7 +32,7 @@ namespace My_First_APP.Models
     {
         [Required]
         [Display(Name = "Имя пользователя")]
-        public string UserName { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -46,8 +46,8 @@ namespace My_First_APP.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
-        public string UserName { get; set; }
+        [Display(Name = "Логин")]
+        public string Login { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]

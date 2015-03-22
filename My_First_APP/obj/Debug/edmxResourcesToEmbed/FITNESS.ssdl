@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище FITNESSModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Login" Type="varchar(max)" />
+    <Property Name="PasswordHash" Type="varchar(max)" />
+    <Property Name="Mail" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Blank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="varchar(max)" />
+    <Property Name="TypeId" Type="int" />
+    <Property Name="Person_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="BlankType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="BlankTypeCharacteristic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="BalnkTypeId" Type="int" />
+    <Property Name="CharacterId" Type="int" />
+    <Property Name="DiseaseId" Type="int" />
+  </EntityType>
+  <EntityType Name="Characterisitcs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="CharacteristicsValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Value" Type="varchar(max)" />
+    <Property Name="CharID" Type="int" />
+    <Property Name="Type" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="CurrentCharacteristicsValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Value" Type="varchar(max)" />
+    <Property Name="BlankId" Type="int" />
+    <Property Name="CharId" Type="int" />
+  </EntityType>
+  <EntityType Name="CurrentDiseaseValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Value" Type="varchar(max)" />
+    <Property Name="BlankId" Type="int" />
+    <Property Name="DisId" Type="int" />
+  </EntityType>
+  <EntityType Name="Diseases">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="DiseasesValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Value" Type="varchar(max)" />
+    <Property Name="DisId" Type="int" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="varchar(max)" />
+    <Property Name="SecondName" Type="varchar(max)" />
+    <Property Name="Sex" Type="nchar" MaxLength="1" />
+    <Property Name="BirthDate" Type="datetime" />
+    <Property Name="AccountId" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Blank_BlankType">
+    <End Role="BlankType" Type="Self.BlankType" Multiplicity="0..1" />
+    <End Role="Blank" Type="Self.Blank" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BlankType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Blank">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Blank_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="Blank" Type="Self.Blank" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Blank">
+        <PropertyRef Name="Person_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BlankTypeCharacteristic_BlankType">
+    <End Role="BlankType" Type="Self.BlankType" Multiplicity="0..1" />
+    <End Role="BlankTypeCharacteristic" Type="Self.BlankTypeCharacteristic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BlankType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BlankTypeCharacteristic">
+        <PropertyRef Name="BalnkTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BlankTypeCharacteristic_Characterisitcs">
+    <End Role="Characterisitcs" Type="Self.Characterisitcs" Multiplicity="0..1" />
+    <End Role="BlankTypeCharacteristic" Type="Self.BlankTypeCharacteristic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characterisitcs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BlankTypeCharacteristic">
+        <PropertyRef Name="CharacterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BlankTypeCharacteristic_Diseases">
+    <End Role="Diseases" Type="Self.Diseases" Multiplicity="0..1" />
+    <End Role="BlankTypeCharacteristic" Type="Self.BlankTypeCharacteristic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diseases">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BlankTypeCharacteristic">
+        <PropertyRef Name="DiseaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CurrentCharacteristicsValue_Blank">
+    <End Role="Blank" Type="Self.Blank" Multiplicity="0..1" />
+    <End Role="CurrentCharacteristicsValue" Type="Self.CurrentCharacteristicsValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CurrentCharacteristicsValue">
+        <PropertyRef Name="BlankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CurrentCharacteristicsValue_Characterisitcs">
+    <End Role="Characterisitcs" Type="Self.Characterisitcs" Multiplicity="0..1" />
+    <End Role="CharacteristicsValue" Type="Self.CharacteristicsValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characterisitcs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CharacteristicsValue">
+        <PropertyRef Name="CharID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CurrentCharacteristicsValue_Characterisitcs1">
+    <End Role="Characterisitcs" Type="Self.Characterisitcs" Multiplicity="0..1" />
+    <End Role="CurrentCharacteristicsValue" Type="Self.CurrentCharacteristicsValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characterisitcs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CurrentCharacteristicsValue">
+        <PropertyRef Name="CharId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CurrentDiseaseValue_Blank">
+    <End Role="Blank" Type="Self.Blank" Multiplicity="0..1" />
+    <End Role="CurrentDiseaseValue" Type="Self.CurrentDiseaseValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Blank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CurrentDiseaseValue">
+        <PropertyRef Name="BlankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CurrentDiseaseValue_Diseases">
+    <End Role="Diseases" Type="Self.Diseases" Multiplicity="0..1" />
+    <End Role="CurrentDiseaseValue" Type="Self.CurrentDiseaseValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diseases">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CurrentDiseaseValue">
+        <PropertyRef Name="DisId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DiseasesValue_Diseases">
+    <End Role="Diseases" Type="Self.Diseases" Multiplicity="0..1" />
+    <End Role="DiseasesValue" Type="Self.DiseasesValue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Diseases">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DiseasesValue">
+        <PropertyRef Name="DisId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Хранилище FITNESSModelContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Blank" EntityType="Self.Blank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BlankType" EntityType="Self.BlankType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BlankTypeCharacteristic" EntityType="Self.BlankTypeCharacteristic" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Characterisitcs" EntityType="Self.Characterisitcs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CharacteristicsValue" EntityType="Self.CharacteristicsValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CurrentCharacteristicsValue" EntityType="Self.CurrentCharacteristicsValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CurrentDiseaseValue" EntityType="Self.CurrentDiseaseValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Diseases" EntityType="Self.Diseases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DiseasesValue" EntityType="Self.DiseasesValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Blank_BlankType" Association="Self.FK_Blank_BlankType">
+      <End Role="BlankType" EntitySet="BlankType" />
+      <End Role="Blank" EntitySet="Blank" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Blank_Person" Association="Self.FK_Blank_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Blank" EntitySet="Blank" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BlankTypeCharacteristic_BlankType" Association="Self.FK_BlankTypeCharacteristic_BlankType">
+      <End Role="BlankType" EntitySet="BlankType" />
+      <End Role="BlankTypeCharacteristic" EntitySet="BlankTypeCharacteristic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BlankTypeCharacteristic_Characterisitcs" Association="Self.FK_BlankTypeCharacteristic_Characterisitcs">
+      <End Role="Characterisitcs" EntitySet="Characterisitcs" />
+      <End Role="BlankTypeCharacteristic" EntitySet="BlankTypeCharacteristic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BlankTypeCharacteristic_Diseases" Association="Self.FK_BlankTypeCharacteristic_Diseases">
+      <End Role="Diseases" EntitySet="Diseases" />
+      <End Role="BlankTypeCharacteristic" EntitySet="BlankTypeCharacteristic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CurrentCharacteristicsValue_Blank" Association="Self.FK_CurrentCharacteristicsValue_Blank">
+      <End Role="Blank" EntitySet="Blank" />
+      <End Role="CurrentCharacteristicsValue" EntitySet="CurrentCharacteristicsValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CurrentCharacteristicsValue_Characterisitcs" Association="Self.FK_CurrentCharacteristicsValue_Characterisitcs">
+      <End Role="Characterisitcs" EntitySet="Characterisitcs" />
+      <End Role="CharacteristicsValue" EntitySet="CharacteristicsValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CurrentCharacteristicsValue_Characterisitcs1" Association="Self.FK_CurrentCharacteristicsValue_Characterisitcs1">
+      <End Role="Characterisitcs" EntitySet="Characterisitcs" />
+      <End Role="CurrentCharacteristicsValue" EntitySet="CurrentCharacteristicsValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CurrentDiseaseValue_Blank" Association="Self.FK_CurrentDiseaseValue_Blank">
+      <End Role="Blank" EntitySet="Blank" />
+      <End Role="CurrentDiseaseValue" EntitySet="CurrentDiseaseValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CurrentDiseaseValue_Diseases" Association="Self.FK_CurrentDiseaseValue_Diseases">
+      <End Role="Diseases" EntitySet="Diseases" />
+      <End Role="CurrentDiseaseValue" EntitySet="CurrentDiseaseValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DiseasesValue_Diseases" Association="Self.FK_DiseasesValue_Diseases">
+      <End Role="Diseases" EntitySet="Diseases" />
+      <End Role="DiseasesValue" EntitySet="DiseasesValue" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Account" Association="Self.FK_Person_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Person" EntitySet="Person" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

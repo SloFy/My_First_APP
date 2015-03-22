@@ -14,6 +14,7 @@ namespace My_First_APP.Controllers
 
         public ActionResult Index()
         {
+            Book b1=db.Books.Where(b=>b.Id==1).First();
            // ViewBag.Message = "Это вызов частичного представления из обычного";
         //    return View();
             return View(db.Books);
@@ -30,6 +31,7 @@ namespace My_First_APP.Controllers
         {
             purchase.Date = DateTime.Now;
             // добавляем информацию о покупке в базу данных
+           
             db.Purchases.Add(purchase);
             // сохраняем в бд все изменения
             db.SaveChanges();
@@ -53,8 +55,8 @@ namespace My_First_APP.Controllers
             // Тип файла - content-type
             string file_type = "application/pdf";
             // Имя файла - необязательно
-            string file_name = "PDFIcon.pdf";
-            return File(file_path, file_type, file_name);
+            string file_Login = "PDFIcon.pdf";
+            return File(file_path, file_type, file_Login);
         }
 
         public ActionResult Partial()

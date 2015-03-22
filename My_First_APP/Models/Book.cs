@@ -10,7 +10,7 @@ namespace My_First_APP.Models
         // ID книги
         public int Id { get; set; }
         // название книги
-        public string Name { get; set; }
+        public string Login { get; set; }
         // автор книги
         public string Author { get; set; }
         // цена
