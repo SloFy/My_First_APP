@@ -152,6 +152,19 @@ namespace My_First_APP.Controllers
         }
         public ActionResult Manage(ManageMessageId? message)
         {
+            Account user = null;
+            string curr_user=User.Identity.GetUserName();
+
+            using (FITNESSEntities db = new FITNESSEntities())
+            {
+                user = db.Account.Where(A => A.Login == curr_user).FirstOrDefault();
+
+            
+            if (user.Person.Count == 0)
+                ViewBag.PersonEdit = "Заполнить профиль";
+            else
+                ViewBag.PersonEdit = "Редактировать профиль";
+            }
             ViewBag.StatusMessage =
                message == ManageMessageId.ChangePasswordSuccess ? "Ваш пароль изменен."               
                : message == ManageMessageId.Error ? "Произошла ошибка."
@@ -159,6 +172,8 @@ namespace My_First_APP.Controllers
                : "";
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
+            
+            
         }
 
         public ActionResult ChangePassword()
@@ -224,6 +239,19 @@ namespace My_First_APP.Controllers
             }
             return View("Manage");
         }
+
+        public ActionResult ManagePerson()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManagePerson(ManagePerson model)
+        {
+
+            return View();
+        }
       
         public static string GetPass(int x)
         {
@@ -269,6 +297,7 @@ namespace My_First_APP.Controllers
             ChangePasswordSuccess,
             ChangeMailSuccess,
             RemoveLoginSuccess,
+            SaveSuccess,
             Error
         }
     

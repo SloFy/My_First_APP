@@ -1,0 +1,54 @@
+﻿@model My_First_APP.Models.NewBlank
+@{
+    ViewBag.Title = "Добро пожаловать на страницу авторизации!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Characteristics.Name</h2>
+@using (Html.BeginForm("Input/"+Model.blank_id+"/"+(Model.charachter_id+1), "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    int i=0;
+    @Html.AntiForgeryToken()
+    foreach (CharacteristicsValue CHV in Model.CharacteristicsValue)
+    {        
+        if(CHV.Type=="CB")
+        {            
+                <div class="form-group">
+                    @Html.CheckBoxFor(m => m.b_values[i], new { @class ="form-control" })
+                    @Html.Label(CHV.Value, CHV.Value, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">             
+        </div>
+    </div>  
+       }
+       
+        if(CHV.Type=="CB_TB")
+        {            
+                <div class="form-group">
+                   
+        <div class="col-md-10">
+            @Html.CheckBoxFor(m => m.b_values[i],new { @class ="form-control" }) lol
+            @Html.TextBoxFor(m => m.s_values[i], new { @class = "form-control" })
+                  </div>
+    </div>  
+       }
+       
+        if(CHV.Type=="TB")
+        {            
+                <div class="form-group">
+        <div class="col-md-10">               
+            @Html.TextBoxFor(m => m.s_values[i], new { @class = "form-control" })                    
+           
+        </div>
+    </div>  
+       }
+        
+       i++;
+    }
+
+    
+    <input type="submit" value="Далее" class="btn btn-default" />
+        
+
+
+        
+}

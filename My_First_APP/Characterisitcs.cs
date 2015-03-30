@@ -22,8 +22,7 @@ namespace My_First_APP
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-    
+        public string Name { get; set; }    
         public virtual ICollection<BlankTypeCharacteristic> BlankTypeCharacteristic { get; set; }
         public virtual ICollection<CharacteristicsValue> CharacteristicsValue { get; set; }
         public virtual ICollection<CurrentCharacteristicsValue> CurrentCharacteristicsValue { get; set; }

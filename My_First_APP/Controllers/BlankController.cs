@@ -54,17 +54,11 @@ namespace My_First_APP.Controllers
                     ViewBag.Question = select.ExecuteScalar();
                     select.CommandText = "select * from answer where question_id=" + Session["Question_ID"];
                     DataSet ds = new DataSet();
-                    //  ViewBag.Cl_ans = new List<Ans>();
                     List<Ans> answer_list = new List<Ans>();
-                    //   ViewBag.Answers = new List<string>();
-                    //    ViewBag.Answers_type = new List<string>();
                     SqlDataAdapter da = new SqlDataAdapter(select);
                     da.Fill(ds, "answer");
                     foreach (DataRow row in ds.Tables["answer"].Rows)
                     {
-
-                        //    ViewBag.Answers.Add(row["text"].ToString());
-                        //      ViewBag.Answers_type.Add(row["type"].ToString());
                         Ans new_answer = new Ans((Convert.ToInt32(Session["Question_ID"])), row["text"].ToString(), row["type"].ToString());
                         answer_list.Add(new_answer);
                     }

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<BlankType>
+@{
+    ViewBag.Title = "Выберите тестирование";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+}
+
+<h2>@ViewBag.Title.</h2>
+<h1 class="text-success">@ViewBag.StatusMessage</h1>
+
+@foreach(BlankType b in Model)
+{   
+     using (Html.BeginForm("Input/"+b.Id+"/"+"1", "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+{@Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Заполнить анкету  @b.Name" class="btn btn-default" />
+        </div>
+    </div>     
+}   
+}
+<iframe src="//vk.com/video_ext.php?oid=-26713492&id=171186652&hash=f4184ec74e14f7ca&hd=2" width="853" height="480" frameborder="0"></iframe>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

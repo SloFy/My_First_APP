@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Редактирование личных данных";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using Microsoft.AspNet.Identity
+@model My_First_APP.Models.ManagePerson
+
+
+
+@using (Html.BeginForm("ManagePerson", "NewAccount", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })            
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SecondName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control" })            
+        </div>
+    </div>    
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+        <div>
+            @Html.RadioButtonFor(m => m.Sex, true, new { @class = "CheckBoxClass" })
+            <span>Женский</span>            
+        </div>
+        <div>
+            @Html.RadioButtonFor(m => m.Sex, false, new { @class = "CheckBoxClass" })
+            
+            <span>Мужской</span>
+        </div>
+    </div>    
+       <div class="form-group">  
+           @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })             
+         <!--  <div class="editor-field">
+               @Html.EditorFor(m => m.BirthDate, new { @class = "form-control" })-->
+           <div class="col-md-10">
+               <input class="form-control" data-val="true" data-val-date="Поле Дата рождения должно содержать дату." data-val-required="Требуется поле Дата рождения." id="BirthDate" name="BirthDate" type="date" value="">
+           </div>
+               @Html.ValidationMessageFor(m => m.BirthDate)
+               <!--</div>-->
+           </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Сохранить" class="btn btn-default" />
+        </div>
+    </div>
+}
+

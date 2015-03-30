@@ -43,4 +43,23 @@ namespace My_First_APP.Models
         [Display(Name = "Пароль")]
         public string Password { get; set; }
     }
+    public class ManagePerson
+    {
+        [DataType(DataType.Text)]
+        [Display(Name = "Имя")]
+        public string FirstName { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Фамилия")]
+        public string SecondName { get; set; }
+
+        [Display(Name = "Пол")]
+        public bool Sex { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата рождения")]
+        public DateTime BirthDate { get; set; }
+
+    }
 }

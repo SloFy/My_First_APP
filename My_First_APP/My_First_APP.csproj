@@ -186,6 +186,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyAccountController.cs" />
     <Compile Include="Controllers\NewAccountController.cs" />
+    <Compile Include="Controllers\NewBlankController.cs" />
     <Compile Include="CurrentCharacteristicsValue.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
     </Compile>
@@ -224,6 +225,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageModel.cs" />
+    <Compile Include="Models\NewBlank.cs" />
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Person.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
@@ -254,6 +256,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\9T83tId5wws.jpg" />
+    <Content Include="Images\Check.png" />
+    <Content Include="Images\UnCheck.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Files\Допуск.pdf" />
@@ -325,6 +329,10 @@
     <Content Include="Views\NewAccount\Manage.cshtml" />
     <Content Include="Views\NewAccount\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\NewAccount\_ChangeMailPartial.cshtml" />
+    <Content Include="Views\NewAccount\ManagePerson.cshtml" />
+    <Content Include="Views\NewBlank\Index.cshtml" />
+    <Content Include="Views\NewBlank\Input.cshtml" />
+    <Content Include="Views\NewBlank\_Answers.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
