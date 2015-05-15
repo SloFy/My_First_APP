@@ -18,8 +18,6 @@ namespace My_First_APP.Models
        public Characterisitcs Characteristics { get; set; }
        public ICollection<CharacteristicsValue> CharacteristicsValue { get; set; }
        public CurrentCharacteristicsValue CurrentCharacteristicsValue { get; set; }
-       
-
     }
     
 }

@@ -14,10 +14,10 @@ namespace My_First_APP.Controllers
 
         public ActionResult Index()
         {
-            Book b1=db.Books.Where(b=>b.Id==1).First();
+          //  Book b1=db.Books.Where(b=>b.Id==1).First();
            // ViewBag.Message = "Это вызов частичного представления из обычного";
         //    return View();
-            return View(db.Books);
+            return View();
         }
 
         [HttpGet]

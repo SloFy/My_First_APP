@@ -1,0 +1,100 @@
+﻿@*@model My_First_APP.Models.FillingBlank*@
+@using My_First_APP.Models;
+@model IEnumerable<Characterisitcs>
+@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Вопрос @(Convert.ToInt32(Session["Current_Question"]) + 1) из @Model.Count() </h2>
+@{New_Model m = new New_Model();
+  FITNESSEntities db = new FITNESSEntities();
+  m.questions = Model.ToList();
+  m.Question = Model.ElementAt(Convert.ToInt32(Session["Current_Question"]));
+  m.Default_Answers = db.CharacteristicsValue.Where(c => c.CharID == m.Question.Id).ToList();
+  m.blank_id = Convert.ToInt32(Session["Currnet_Blank"].ToString());  
+  
+  for (int i = 0; i < m.Default_Answers.Count;i++)
+  {
+      m.b_answers.Add(false);
+      m.s_answers.Add("");
+      m.type_answers.Add("");      
+  }
+  m.blank_id = Convert.ToInt32(Session["Currnet_Blank"].ToString());
+  }
+@{Html.RenderPartial("_Answers", m);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+        <h2>Вопрос @(Convert.ToInt32(Session["Current_Question"])+1) из @Model.Elements.Count() </h2>
+
+        @using (Html.BeginForm("Filling", "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl },FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+
+        {
+            @Html.AntiForgeryToken()
+            @* @Html.Label(Model.Elements[Convert.ToInt32(Session["Current_Question"])].Question.Name)
+        foreach (CharacteristicsValue CHV in Model.Elements[Convert.ToInt32(Session["Current_Question"])].Default_Answers)
+        {
+            if (CHV.Type == "CB")
+            {
+            <div class="form-group">
+                @Html.CheckBox(CHV.Value, false, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                </div>
+            </div>
+        }
+
+        if (CHV.Type == "CB_TB")
+        {
+            <div class="form-group">
+                @Html.CheckBox(CHV.Value, false, new { @class = "col-md-2 control-label" }) @Html.TextBox(CHV.Id.ToString(),new { @class = "form-control" })
+                           <div class="col-md-10">
+                </div>
+            </div>
+        }
+
+        if (CHV.Type == "TB")
+        {
+            <div class="form-group">
+                 @Html.TextBox(CHV.Id.ToString(),null, new { @class = "form-control" })
+
+                <div class="col-md-10">
+                </div>
+            </div>
+        }
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Далее" />
+        </div>
+    </div>
+    }
+*@
+
+

@@ -1,7 +1,58 @@
-﻿@model CurrentCharacteristicsValue
+﻿@model My_First_APP.Models.New_Model
 
-@using (Html.BeginForm("Press", "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
+@using (Html.BeginForm("Part", "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl },FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+
+        {
     
-    
-}
+    @Html.AntiForgeryToken()
+            int i = 0;
+            <h2>@Model.Question.Name</h2>
+    @Html.HiddenFor(m=>m.blank_id)
+    @Html.HiddenFor(m => m.current_question)
+    @Html.HiddenFor(m=>m.Default_Answers)
+    @Html.HiddenFor(m=>m.Question)
+    @Html.HiddenFor(m=>m.questions)
+    @Html.HiddenFor(m=>m.type_answers)
+    foreach (CharacteristicsValue CHV in Model.Default_Answers)
+            {
+
+                Model.type_answers[i] = CHV.Type;
+
+                if (CHV.Type == "CB")
+                {
+                <div class="form-group">                   
+                    @Html.CheckBoxFor(m=>m.b_answers[i],new { @class = "col-md-2 control-label" })
+                    @Html.Label(CHV.Value,new { @class = "form-control" })
+                    <div class="col-md-10">
+                    </div>
+                </div>
+            }
+
+            if (CHV.Type == "CB_TB")
+            {
+                <div class="form-group">
+                    @Html.CheckBoxFor(m => m.b_answers[i], new { @class = "col-md-2 control-label" }) @Html.TextBoxFor(m => m.s_answers[i], new { @class = "form-control" })
+                    @Html.Label(CHV.Value,new { @class = "form-control" })
+                               <div class="col-md-10">
+                    </div>
+                </div>
+            }
+
+            if (CHV.Type == "TB")
+            {
+                <div class="form-group">
+                    @Html.TextBoxFor(m=>m.s_answers[i], new { @class = "form-control" })                    
+                    <div class="col-md-10">
+                    </div>
+                </div>
+            }
+                i++;
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Далее" />
+            </div>
+        </div>
+            Model.blank_id = 1488;
+        }

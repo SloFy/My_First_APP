@@ -36,6 +36,7 @@ namespace My_First_APP.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 // поиск пользователя в бд
                 Account user = null;
                 string Password_hash="123";
@@ -82,7 +83,7 @@ namespace My_First_APP.Controllers
                     {
                         Account new_account = new Account();
                         new_account.Id = (db.Account.Max(m => m.Id) + 1);
-                        new_account.Login = model.Login;                     
+                        new_account.Login = model.Login;                   
 
                         new_account.PasswordHash = model.Password.GetHashCode().ToString();
                         db.Account.Add(new_account);

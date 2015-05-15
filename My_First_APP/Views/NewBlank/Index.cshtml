@@ -9,7 +9,7 @@
 
 @foreach(BlankType b in Model)
 {   
-     using (Html.BeginForm("Input/"+b.Id+"/"+"1", "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+     using (Html.BeginForm("Input/"+b.Id, "NewBlank", new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new { @class = "form-vertical", role = "form" }))
 {@Html.AntiForgeryToken()
     
     <div class="form-group">

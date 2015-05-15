@@ -219,13 +219,17 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Ans.cs" />
+    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookContext.cs" />
     <Compile Include="Models\BookDbInitializer .cs" />
+    <Compile Include="Models\Element.cs" />
+    <Compile Include="Models\FillingBlank.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageModel.cs" />
     <Compile Include="Models\NewBlank.cs" />
+    <Compile Include="Models\New_Model.cs" />
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Person.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
@@ -333,6 +337,7 @@
     <Content Include="Views\NewBlank\Index.cshtml" />
     <Content Include="Views\NewBlank\Input.cshtml" />
     <Content Include="Views\NewBlank\_Answers.cshtml" />
+    <Content Include="Views\NewBlank\Test.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
