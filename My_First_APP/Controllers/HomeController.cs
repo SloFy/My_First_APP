@@ -10,7 +10,7 @@ namespace My_First_APP.Controllers
     public class HomeController : Controller
     {
         // создаем контекст данных
-        BookContext db = new BookContext();
+        
 
         public ActionResult Index()
         {
@@ -23,19 +23,13 @@ namespace My_First_APP.Controllers
         [HttpGet]
         public ActionResult Buy(int id)
         {
-            ViewBag.BookId = id;
+            
             return View();
         }
         [HttpPost]
-        public string Buy(Purchase purchase)
+        public string Buy( )
         {
-            purchase.Date = DateTime.Now;
-            // добавляем информацию о покупке в базу данных
-           
-            db.Purchases.Add(purchase);
-            // сохраняем в бд все изменения
-            db.SaveChanges();
-            return "Спасибо," + purchase.Person + ", за покупку!";
+            return "Спасибо";
         }
 
         public ActionResult GetHtml()

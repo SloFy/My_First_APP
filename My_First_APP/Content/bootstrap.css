@@ -1406,7 +1406,7 @@ pre code {
 
 table {
   max-width: 100%;
-  background-color: transparent;
+  background-color: rgba(142, 211, 255, 0.1);
 }
 
 th {
@@ -2018,6 +2018,16 @@ textarea.input-lg {
        -o-user-select: none;
           user-select: none;
 }
+
+
+    .btn a {
+        color: white;
+        text-decoration: none;
+    }
+
+    body {
+        background-color: #F1F1F1;
+    }
 
 .btn:focus {
   outline: thin dotted #333;

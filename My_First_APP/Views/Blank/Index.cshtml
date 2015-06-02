@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BlankType>
+@{
+    ViewBag.Title = "Выберите тестирование";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+}
+
+<h2>@ViewBag.Title.</h2>
+<h1 class="text-success">@ViewBag.StatusMessage</h1>
+
+@foreach(BlankType b in Model)
+{   
+     using (Html.BeginForm("Test/"+b.Id, "Blank", new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+{@Html.AntiForgeryToken()
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Заполнить анкету  @b.Name" class="btn btn-info" />
+        </div>
+    </div>
+}
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

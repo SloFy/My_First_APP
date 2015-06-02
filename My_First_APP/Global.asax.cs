@@ -7,13 +7,15 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
 using My_First_APP.Models;
+using System.Web.Http;
+using System.Web.Routing;
 namespace My_First_APP
 {
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new BookDbInitializer());
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

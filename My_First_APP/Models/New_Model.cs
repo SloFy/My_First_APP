@@ -7,8 +7,9 @@ namespace My_First_APP.Models
 {
     public class New_Model
     {
+        private FITNESSEntities db = new FITNESSEntities();
         public int blank_id;
-        public int current_question=0;
+        public int current_question;
         public Characterisitcs Question { get; set; }
         public List<Characterisitcs> questions { get; set; }
         public List<CharacteristicsValue> Default_Answers { get; set; }
@@ -23,8 +24,8 @@ namespace My_First_APP.Models
             b_answers = new List<bool>(m.b_answers);
             type_answers = new List<string>(m.type_answers);
             blank_id = m.blank_id;
-            current_question = m.current_question;         
-
+            current_question = m.current_question;
+            Question = new Characterisitcs(m.Question);
         }
          public New_Model()
         {
@@ -34,6 +35,44 @@ namespace My_First_APP.Models
             s_answers = new List<string>();
             b_answers = new List<bool>();
             type_answers = new List<string>();
+        }
+        public void AddAnswers()
+        {
+             CurrentCharacteristicsValue curr_CHV = new CurrentCharacteristicsValue();
+               curr_CHV.BlankId = blank_id;
+               curr_CHV.CharId = Question.Id;
+               
+            for(int i=0;i<Default_Answers.Count();i++)
+            {
+
+                if ((Default_Answers[i].Type == "CB") && (b_answers[i] == true))
+                {
+                                    
+                    curr_CHV.Value=Default_Answers[i].Value;
+                    curr_CHV.Id = (db.CurrentCharacteristicsValue.Max(m => m.Id) + 1);
+                    db.CurrentCharacteristicsValue.Add(curr_CHV);
+                    db.SaveChanges();
+                }
+                if (Default_Answers[i].Type == "TB")
+                {
+                   
+                    curr_CHV.Value = s_answers[i];
+                    curr_CHV.Id = (db.CurrentCharacteristicsValue.Max(m => m.Id) + 1);
+                    db.CurrentCharacteristicsValue.Add(curr_CHV);
+                    db.SaveChanges();
+                }
+                if ((Default_Answers[i].Type == "CB_TB") && (b_answers[i] == true))
+                {
+                    curr_CHV.Value = Default_Answers[i].Value;
+                    curr_CHV.Id = (db.CurrentCharacteristicsValue.Max(m => m.Id) + 1);
+                    db.CurrentCharacteristicsValue.Add(curr_CHV);
+                    db.SaveChanges();
+                    curr_CHV.Value = s_answers[i];
+                    curr_CHV.Id = (db.CurrentCharacteristicsValue.Max(m => m.Id) + 1);
+                    db.CurrentCharacteristicsValue.Add(curr_CHV);
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

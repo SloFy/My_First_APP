@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Ввод личных данных";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using Microsoft.AspNet.Identity
+@model Person
+
+
+
+@using (Html.BeginForm("ManagePerson", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.AccountId)
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SecondName, new { @class = "col-md-2 control-label" })
+
+        @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+
+        @Html.RadioButtonFor(m => m.Sex, "М") М
+        @Html.RadioButtonFor(m => m.Sex, "Ж") Ж
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+        <input class="form-control" data-val="true" data-val-date="Поле Дата рождения должно содержать дату." data-val-required="Требуется поле Дата рождения." id="BirthDate" name="BirthDate" type="date" value=@Model.BirthDate.Value.Date>
+        @Html.ValidationMessageFor(m => m.BirthDate)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Class, new { @class = "col-md-2 control-label" })
+
+        @{FITNESSEntities db = new FITNESSEntities();}
+        @Html.DropDownListFor(m => m.ClassId, new SelectList(db.Class, "Id", "Value"), new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <div class="btn btn-success">
+            @Html.ActionLink("Обратно", "Manage")
+        </div>
+        <input type="submit" value="Сохранить" class="btn btn-success" />
+    </div>
+}
+

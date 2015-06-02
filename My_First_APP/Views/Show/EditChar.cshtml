@@ -1,0 +1,44 @@
+﻿@model My_First_APP.CurrentCharacteristicsValue
+
+@{
+    ViewBag.Title = "Редактирование";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model=>model.BlankId)
+        @Html.HiddenFor(model=>model.CharId)
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                @Html.Label("Name", Model.Characterisitcs.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Value, new { @class = "form-control " })
+                   
+                    @Html.ValidationMessageFor(model => model.Value)
+                </div>
+            </div>
+        </form>
+            <div class="form-actions no-color">
+                <div class="btn btn-success">
+                    @Html.ActionLink("Обратно к анкете", "Details", new {id=Model.BlankId })
+                </div>
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+</div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

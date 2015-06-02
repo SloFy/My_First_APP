@@ -45,6 +45,10 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -53,6 +57,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -165,6 +177,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Blank.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
     </Compile>
@@ -180,13 +193,13 @@
     <Compile Include="CharacteristicsValue.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BlankController.cs" />
-    <Compile Include="Controllers\FitnessController.cs" />
+    <Compile Include="Class.cs">
+      <DependentUpon>FITNESS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MyAccountController.cs" />
-    <Compile Include="Controllers\NewAccountController.cs" />
-    <Compile Include="Controllers\NewBlankController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\ShowController.cs" />
     <Compile Include="CurrentCharacteristicsValue.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
     </Compile>
@@ -218,19 +231,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Ans.cs" />
-    <Compile Include="Models\Answer.cs" />
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BookContext.cs" />
-    <Compile Include="Models\BookDbInitializer .cs" />
-    <Compile Include="Models\Element.cs" />
-    <Compile Include="Models\FillingBlank.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ManageModel.cs" />
-    <Compile Include="Models\NewBlank.cs" />
-    <Compile Include="Models\New_Model.cs" />
-    <Compile Include="Models\Purchase.cs" />
+    <Compile Include="Models\InputModel.cs" />
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Person.cs">
       <DependentUpon>FITNESS.tt</DependentUpon>
     </Compile>
@@ -249,10 +254,6 @@
     <Compile Include="Util\ImageResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Bookstore.mdf" />
-    <Content Include="App_Data\Bookstore_log.ldf">
-      <DependentUpon>Bookstore.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -311,35 +312,28 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Buy.cshtml" />
     <Content Include="Views\Home\Partial.cshtml" />
-    <Content Include="Views\Blank\Input.cshtml" />
-    <Content Include="Views\Fitness\Blank.cshtml" />
-    <Content Include="Views\MyAccount\Registration.cshtml" />
-    <Content Include="Views\MyAccount\Login.cshtml" />
-    <Content Include="Views\Fitness\Card.cshtml" />
-    <Content Include="Views\NewAccount\Registration.cshtml" />
-    <Content Include="Views\NewAccount\Login.cshtml" />
-    <Content Include="Views\NewAccount\ForgotPassword.cshtml" />
-    <Content Include="Views\NewAccount\Manage.cshtml" />
-    <Content Include="Views\NewAccount\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\NewAccount\_ChangeMailPartial.cshtml" />
-    <Content Include="Views\NewAccount\ManagePerson.cshtml" />
-    <Content Include="Views\NewBlank\Index.cshtml" />
-    <Content Include="Views\NewBlank\Input.cshtml" />
-    <Content Include="Views\NewBlank\_Answers.cshtml" />
-    <Content Include="Views\NewBlank\Test.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ChangeMailPartial.cshtml" />
+    <Content Include="Views\Account\ManagePerson.cshtml" />
+    <Content Include="Views\Show\Create.cshtml" />
+    <Content Include="Views\Show\Delete.cshtml" />
+    <Content Include="Views\Show\Details.cshtml" />
+    <Content Include="Views\Show\EditChar.cshtml" />
+    <Content Include="Views\Show\Index.cshtml" />
+    <Content Include="Views\Show\Edit.cshtml" />
+    <Content Include="Views\Account\EditPerson.cshtml" />
+    <Content Include="Views\Form\Create.cshtml" />
+    <Content Include="Views\Form\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

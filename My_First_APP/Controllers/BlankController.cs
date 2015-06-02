@@ -3,98 +3,123 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.SqlClient;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using System.Data;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 using My_First_APP.Models;
-using System.Data.Entity;
 namespace My_First_APP.Controllers
 {
     public class BlankController : Controller
     {
-       
+        private FITNESSEntities db = new FITNESSEntities();
         //
         // GET: /Blank/
+
         public ActionResult Index()
         {
+            // Account user = null;
+             string login = User.Identity.GetUserName();            
+            if (login == "" || login == null)
+                return View("~/Views/Account/Registration.cshtml");
             
-
-            return View();
+            int blank_cnt = db.Blank.Count(b => b.Person.Account.Login == login);
+            if (blank_cnt == 0)
+            {
+                var BlankTypes = db.BlankType.Where(m => m.Id == 1);
+                return View(BlankTypes);
+            }
+            else
+            {
+                var BlankTypes = db.BlankType.Where(m => m.Id != 1);
+                return View(BlankTypes);
+            }
         }
-        public ActionResult Input()
+        /*
+        public ActionResult Test(int Id=2)
         {
-            setSession();
-            GenerateNewView();
-            return View();
-
+            string name = User.Identity.GetUserName();
+            //Создание нового бланка
+            Blank blank = new Blank();
+            blank.BlankType = db.BlankType.Where(b => b.Id == Id).FirstOrDefault();                   
+            blank.Person = db.Person.Where(p => p.Account == (db.Account.Where(a => a.Login == name ).FirstOrDefault())).FirstOrDefault();
+            blank.CreateDate = DateTime.Now.ToString();
+            int new_id = db.Blank.Max(m => m.Id)+1;
+            blank.Id = new_id;
+            db.Blank.Add(blank);
+            db.SaveChanges();
+            Session["Currnet_Blank"] = blank.Id;
+            var Questions = db.Database.SqlQuery<Characterisitcs>("SELECT * FROM Characterisitcs WHERE id in (SELECT CharacterId FROM BlankTypeCharacteristic WHERE BalnkTypeId=" + Id + ") ORDER BY Id").ToArray();
+            
+                      
+            return View(Questions);
         }
-        public void setSession()
+         */
+        public ActionResult Test(int Id=2)
         {
-            if (Session["Question_ID"] == null)
-                Session["Question_ID"] = 0;
-        }
-        public void Next_question()
-        {
-            Session["Question_ID"] = (Convert.ToInt32(Session["Question_ID"]) + 1).ToString();
-        }
-        public void Prev_question()
-        {
-            Session["Question_ID"] = (Convert.ToInt32(Session["Question_ID"]) - 1).ToString();
-        }
-        public void GenerateNewView()
-        {
-            using (SqlConnection connection = new SqlConnection("Data Source=DELL-PC;Initial Catalog=FC_DB;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False"))
-                try
-                {
-                    connection.Open();
-                    SqlCommand select = new SqlCommand("select count(*) from question;", connection);
-                    ViewBag.Question_cnt = select.ExecuteScalar();
-                    select.CommandText = "select text from question where id=" + Session["Question_ID"] + ";";
-                    ViewBag.Question = select.ExecuteScalar();
-                    select.CommandText = "select * from answer where question_id=" + Session["Question_ID"];
-                    DataSet ds = new DataSet();
-                    List<Ans> answer_list = new List<Ans>();
-                    SqlDataAdapter da = new SqlDataAdapter(select);
-                    da.Fill(ds, "answer");
-                    foreach (DataRow row in ds.Tables["answer"].Rows)
-                    {
-                        Ans new_answer = new Ans((Convert.ToInt32(Session["Question_ID"])), row["text"].ToString(), row["type"].ToString());
-                        answer_list.Add(new_answer);
-                    }
-                    ViewBag.Answer_list = answer_list;
-                }
-                catch
-                {
-                }
+            string name = User.Identity.GetUserName();
+            //Создание нового бланка
+            Blank blank = new Blank();
+            blank.BlankType = db.BlankType.Where(b => b.Id == Id).FirstOrDefault();                   
+            blank.Person = db.Person.Where(p => p.Account == (db.Account.Where(a => a.Login == name ).FirstOrDefault())).FirstOrDefault();
+            blank.CreateDate = DateTime.Now.ToString();
+            int new_id = db.Blank.Max(m => m.Id)+1;
+            blank.Id = new_id;
+            db.Blank.Add(blank);
+            db.SaveChanges();
+            //Создание модели 
+            New_Model mod = new New_Model();
+            mod.blank_id = new_id;  
+            mod.questions =db.Database.SqlQuery<Characterisitcs>("SELECT * FROM Characterisitcs WHERE id in (SELECT CharacterId FROM BlankTypeCharacteristic WHERE BalnkTypeId=" + Id + ") ORDER BY Id").ToList();
+            mod.Question = mod.questions.FirstOrDefault();
+            mod.Default_Answers = db.CharacteristicsValue.Where(c => c.CharID == mod.Question.Id).ToList();
+            mod.current_question = 0;
+            for (int i = 0; i < mod.Default_Answers.Count; i++)
+            {
+                mod.b_answers.Add(false);
+                mod.s_answers.Add("");
+                mod.type_answers.Add(mod.Default_Answers[i].Type);
+            }
+            return View(mod);
         }
         [HttpPost]
-        string Array(List<string> CB_TB)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Enter(int blank_id, int current_question, List<string> type_answers, List<bool> b_answers, List<string> s_answers)
+        
         {
-            string fin = "";
-            for (int i = 0; i < CB_TB.Count; i++)
-                fin += CB_TB[i] + " ; ";
-            return fin;
-        }
-        [HttpPost]
-        public ActionResult Press(string action)
-        {
-           
-            if (action == "Next")
-                Next_question();
-            if (action == "Prev")
-                Prev_question();
-            //string a = ViewData["value"].ToString();
-            GenerateNewView();
-     //       string a = ViewData["value"].ToString();
-            return View("~/Views/Blank/Input.cshtml");
-
-
-        }
-        public void f()
-        {
-
-        }
-
+            /*
+            Part(int blank_id, int current_question, List<string> type_answers, List<bool> b_answers, List<string> s_answers)
+           ([Bind(Include = "blank_id,current_question,type_answers,b_answers,s_answers")] New_Model new_model)
+            */
+            New_Model new_model = new New_Model();
+               new_model.blank_id = blank_id;
+               new_model.current_question = current_question;
+               new_model.type_answers = type_answers;  
+               new_model.b_answers = b_answers;           
+               new_model.s_answers = s_answers;
+               new_model.questions = db.Database.SqlQuery<Characterisitcs>("SELECT * FROM Characterisitcs WHERE id in (SELECT CharacterId FROM BlankTypeCharacteristic WHERE BalnkTypeId=" + db.Blank.Find(blank_id).BlankType.Id + ") ORDER BY Id").ToList();
+               new_model.Question = new_model.questions[current_question];
+               new_model.Default_Answers = db.CharacteristicsValue.Where(c => c.CharID == new_model.Question.Id).ToList();
+            //Добавление ответов в БД
+               new_model.AddAnswers();
+            New_Model next = new New_Model();
+            //Создание модели следующего вопроса.
+            next.blank_id = new_model.blank_id;
+            next.questions = new_model.questions;
+            next.current_question = new_model.current_question + 1;
+            next.Question = next.questions.ElementAt(next.current_question);
+            next.Default_Answers=db.CharacteristicsValue.Where(c => c.CharID == next.Question.Id).ToList();
+            for (int i = 0; i < next.Default_Answers.Count; i++)
+            {
+                next.b_answers.Add(false);
+                next.s_answers.Add("");
+                next.type_answers.Add(next.Default_Answers[i].Type);
+            }
+            new_model =null;
+            return View("Test",next);
+        }      
+        
     }
 }

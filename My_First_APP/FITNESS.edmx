@@ -55,6 +55,13 @@
           <Property Name="CharID" Type="int" />
           <Property Name="Type" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="5" />
+        </EntityType>
         <EntityType Name="CurrentCharacteristicsValue">
           <Key>
             <PropertyRef Name="Id" />
@@ -98,6 +105,7 @@
           <Property Name="Sex" Type="nchar" MaxLength="1" />
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="AccountId" Type="int" />
+          <Property Name="ClassId" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -253,7 +261,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Person_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="returnval" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -291,6 +314,7 @@
           <EntitySet Name="BlankTypeCharacteristic" EntityType="Self.BlankTypeCharacteristic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Characterisitcs" EntityType="Self.Characterisitcs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CharacteristicsValue" EntityType="Self.CharacteristicsValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurrentCharacteristicsValue" EntityType="Self.CurrentCharacteristicsValue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CurrentDiseaseValue" EntityType="Self.CurrentDiseaseValue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Diseases" EntityType="Self.Diseases" Schema="dbo" store:Type="Tables" />
@@ -345,6 +369,10 @@
             <End Role="Account" EntitySet="Account" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
+          <AssociationSet Name="FK_Person_Class" Association="Self.FK_Person_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -357,8 +385,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Account" FromRole="Account" ToRole="Person" />
           <Property Name="Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Person" Relationship="FITNESSModel.FK_Person_Account" FromRole="Account" ToRole="Person" />
         </EntityType>
         <EntityType Name="Blank">
           <Key>
@@ -369,9 +397,9 @@
           <Property Name="TypeId" Type="Int32" />
           <Property Name="Person_Id" Type="Int32" />
           <NavigationProperty Name="BlankType" Relationship="Self.FK_Blank_BlankType" FromRole="Blank" ToRole="BlankType" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Blank_Person" FromRole="Blank" ToRole="Person" />
           <NavigationProperty Name="CurrentCharacteristicsValue" Relationship="Self.FK_CurrentCharacteristicsValue_Blank" FromRole="Blank" ToRole="CurrentCharacteristicsValue" />
           <NavigationProperty Name="CurrentDiseaseValue" Relationship="Self.FK_CurrentDiseaseValue_Blank" FromRole="Blank" ToRole="CurrentDiseaseValue" />
+          <NavigationProperty Name="Person" Relationship="FITNESSModel.FK_Blank_Person" FromRole="Blank" ToRole="Person" />
         </EntityType>
         <EntityType Name="BlankType">
           <Key>
@@ -455,19 +483,6 @@
           <Property Name="DisId" Type="Int32" />
           <NavigationProperty Name="Diseases" Relationship="Self.FK_DiseasesValue_Diseases" FromRole="DiseasesValue" ToRole="Diseases" />
         </EntityType>
-        <EntityType Name="Person">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SecondName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="BirthDate" Type="DateTime" Precision="3" />
-          <Property Name="AccountId" Type="Int32" />
-          <NavigationProperty Name="Account" Relationship="Self.FK_Person_Account" FromRole="Person" ToRole="Account" />
-          <NavigationProperty Name="Blank" Relationship="Self.FK_Blank_Person" FromRole="Person" ToRole="Blank" />
-        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -478,18 +493,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Person_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
-          <End Role="Person" Type="Self.Person" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Person">
-              <PropertyRef Name="AccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Blank_BlankType">
           <End Role="BlankType" Type="Self.BlankType" Multiplicity="0..1" />
           <End Role="Blank" Type="Self.Blank" Multiplicity="*" />
@@ -499,18 +502,6 @@
             </Principal>
             <Dependent Role="Blank">
               <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Blank_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
-          <End Role="Blank" Type="Self.Blank" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Blank">
-              <PropertyRef Name="Person_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -633,18 +624,9 @@
           <EntitySet Name="CurrentDiseaseValue" EntityType="Self.CurrentDiseaseValue" />
           <EntitySet Name="Diseases" EntityType="Self.Diseases" />
           <EntitySet Name="DiseasesValue" EntityType="Self.DiseasesValue" />
-          <EntitySet Name="Person" EntityType="Self.Person" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Person_Account" Association="Self.FK_Person_Account">
-            <End Role="Account" EntitySet="Account" />
-            <End Role="Person" EntitySet="Person" />
-          </AssociationSet>
           <AssociationSet Name="FK_Blank_BlankType" Association="Self.FK_Blank_BlankType">
             <End Role="BlankType" EntitySet="BlankType" />
-            <End Role="Blank" EntitySet="Blank" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Blank_Person" Association="Self.FK_Blank_Person">
-            <End Role="Person" EntitySet="Person" />
             <End Role="Blank" EntitySet="Blank" />
           </AssociationSet>
           <AssociationSet Name="FK_CurrentCharacteristicsValue_Blank" Association="Self.FK_CurrentCharacteristicsValue_Blank">
@@ -713,6 +695,23 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="get_id">
+          <Parameter Name="returnval" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Class" EntityType="FITNESSModel.Class" />
+          <EntitySet Name="Person" EntityType="FITNESSModel.Person" />
+          <AssociationSet Name="FK_Person_Account" Association="FITNESSModel.FK_Person_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Blank_Person" Association="FITNESSModel.FK_Blank_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Blank" EntitySet="Blank" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Class" Association="FITNESSModel.FK_Person_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -725,6 +724,65 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Person" Relationship="FITNESSModel.FK_Person_Class" FromRole="Class" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SecondName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="AccountId" Type="Int32" />
+          <Property Name="ClassId" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="FITNESSModel.FK_Person_Account" FromRole="Person" ToRole="Account" />
+          <NavigationProperty Name="Blank" Relationship="FITNESSModel.FK_Blank_Person" FromRole="Person" ToRole="Blank" />
+          <NavigationProperty Name="Class" Relationship="FITNESSModel.FK_Person_Class" FromRole="Person" ToRole="Class" />
+        </EntityType>
+        <Association Name="FK_Person_Account">
+          <End Type="FITNESSModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="FITNESSModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Blank_Person">
+          <End Type="FITNESSModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="FITNESSModel.Blank" Role="Blank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Blank">
+              <PropertyRef Name="Person_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Class">
+          <End Type="FITNESSModel.Class" Role="Class" Multiplicity="0..1" />
+          <End Type="FITNESSModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -824,18 +882,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Person">
-            <EntityTypeMapping TypeName="FITNESSModel.Person">
-              <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="FITNESSModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -871,6 +917,28 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище FITNESSModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище FITNESSModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="get_id" FunctionName="Хранилище FITNESSModel.get_id" />
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="FITNESSModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="FITNESSModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -886,7 +954,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>

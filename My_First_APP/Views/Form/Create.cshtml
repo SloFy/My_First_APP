@@ -1,0 +1,63 @@
+﻿@using My_First_APP.Models;
+@model Test
+@{
+    ViewBag.Title = "Заполение анкеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Вопрос @(Model.current_question+1) из @Model.question_count</h2>
+
+<h2>@Model.get_Characterisitcs().Name</h2>
+@using (Html.BeginForm("Create","Form"))
+{
+    Test mod=new Test(Model.blank_id,Model.current_question,Model.s_answers,Model.b_answers);
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(m=>m.blank_id)
+    @Html.HiddenFor(m=>m.current_question)
+    
+                            int i = 0;
+                            foreach (CharacteristicsValue curr_char_value in Model.get_CharacteristicsValue())
+                            {
+                                if (curr_char_value.Type == "CB")
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    @Html.CheckBoxFor(m => m.b_answers[i])
+                                                </span>
+                                                @Html.Label(curr_char_value.Value, new { @class = "form-control" })
+                                                @Html.HiddenFor(m => m.s_answers[i])
+                                            </div><!-- /input-group -->
+                                        </div><!-- /.col-lg-6 -->
+                                    </div><!-- /.row -->
+                                }
+                                else if (curr_char_value.Type == "CB_TB")
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    @Html.CheckBoxFor(m => m.b_answers[i], new { @class = "col-md-2 control-label" })
+                                                </span>
+                                                @Html.TextBoxFor(m => m.s_answers[i], new { @class = "form-control" })
+                                                @Html.Label(curr_char_value.Value, new { @class = "form-control" })
+                                            </div><!-- /input-group -->
+                                        </div><!-- /.col-lg-6 -->
+                                    </div><!-- /.row -->
+                                }
+                                else if (curr_char_value.Type == "TB")
+                                {
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(m => m.s_answers[i], new { @class = "form-control" })
+                                        @Html.HiddenFor(m => m.b_answers[i])
+                                    </div>
+                                }
+                                i++;
+                            }
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" class="btn btn-success" value="Далее" />
+                                </div>
+                            </div>
+}

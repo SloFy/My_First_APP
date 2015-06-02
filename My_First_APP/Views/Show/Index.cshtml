@@ -1,0 +1,47 @@
+﻿@model IEnumerable<My_First_APP.Blank>
+
+@{
+    ViewBag.Title = "Ваши анкеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Анкеты, которые Вы заполняли:</h2>
+
+<p>
+    <div class="btn btn-success">
+        @Html.ActionLink("Заполнить еще одну анкету", "Create")
+        </div>
+
+</p>
+<table class="table">
+      <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BlankType.Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BlankType.Name)
+                </td>
+                <td>
+                    <div class="btn btn-info">
+                        @Html.ActionLink("Подробно", "Details", new { id = item.Id }) 
+                        </div>
+                    <div class="btn btn-danger">
+                        @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+                        </div>
+</td>
+            </tr>
+        }
+
+    </table>

@@ -53,9 +53,6 @@ namespace My_First_APP.Models
         [Display(Name = "Фамилия")]
         public string SecondName { get; set; }
 
-        [Display(Name = "Пол")]
-        public bool Sex { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]

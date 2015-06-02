@@ -50,6 +50,13 @@
     <Property Name="CharID" Type="int" />
     <Property Name="Type" Type="varchar(max)" />
   </EntityType>
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Value" Type="varchar" MaxLength="5" />
+  </EntityType>
   <EntityType Name="CurrentCharacteristicsValue">
     <Key>
       <PropertyRef Name="Id" />
@@ -93,6 +100,7 @@
     <Property Name="Sex" Type="nchar" MaxLength="1" />
     <Property Name="BirthDate" Type="datetime" />
     <Property Name="AccountId" Type="int" />
+    <Property Name="ClassId" Type="int" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -248,7 +256,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Person_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="get_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="returnval" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -286,6 +309,7 @@
     <EntitySet Name="BlankTypeCharacteristic" EntityType="Self.BlankTypeCharacteristic" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Characterisitcs" EntityType="Self.Characterisitcs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CharacteristicsValue" EntityType="Self.CharacteristicsValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CurrentCharacteristicsValue" EntityType="Self.CurrentCharacteristicsValue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CurrentDiseaseValue" EntityType="Self.CurrentDiseaseValue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Diseases" EntityType="Self.Diseases" Schema="dbo" store:Type="Tables" />
@@ -338,6 +362,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Person_Account" Association="Self.FK_Person_Account">
       <End Role="Account" EntitySet="Account" />
+      <End Role="Person" EntitySet="Person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Class" Association="Self.FK_Person_Class">
+      <End Role="Class" EntitySet="Class" />
       <End Role="Person" EntitySet="Person" />
     </AssociationSet>
   </EntityContainer>

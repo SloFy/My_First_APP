@@ -146,3 +146,9 @@ C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\My_First_APP.csprojResolveAssemblyReference.cache
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\My_First_APP.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\My_First_APP.pdb
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Net.Http.Formatting.dll
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.dll
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.WebHost.dll
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Net.Http.Formatting.xml
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.xml
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.WebHost.xml

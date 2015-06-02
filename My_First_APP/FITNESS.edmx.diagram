@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c94af8ad16ed4fbc9ede615448595ea5" Name="Diagram1">
+      <Diagram DiagramId="c94af8ad16ed4fbc9ede615448595ea5" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="FITNESSModel.Account" Width="1.5" PointX="1.5" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="FITNESSModel.Blank" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="FITNESSModel.BlankType" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
@@ -15,11 +15,8 @@
         <EntityTypeShape EntityType="FITNESSModel.CurrentDiseaseValue" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="FITNESSModel.Diseases" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="FITNESSModel.DiseasesValue" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FITNESSModel.Person" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="FITNESSModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.5" IsExpanded="true" />
-        <AssociationConnector Association="FITNESSModel.FK_Person_Account" ManuallyRouted="false" />
         <AssociationConnector Association="FITNESSModel.FK_Blank_BlankType" ManuallyRouted="false" />
-        <AssociationConnector Association="FITNESSModel.FK_Blank_Person" ManuallyRouted="false" />
         <AssociationConnector Association="FITNESSModel.FK_CurrentCharacteristicsValue_Blank" ManuallyRouted="false" />
         <AssociationConnector Association="FITNESSModel.FK_CurrentDiseaseValue_Blank" ManuallyRouted="false" />
         <AssociationConnector Association="FITNESSModel.FK_BlankTypeCharacteristic_BlankType" ManuallyRouted="false" />
@@ -29,6 +26,18 @@
         <AssociationConnector Association="FITNESSModel.FK_CurrentCharacteristicsValue_Characterisitcs1" ManuallyRouted="false" />
         <AssociationConnector Association="FITNESSModel.FK_CurrentDiseaseValue_Diseases" ManuallyRouted="false" />
         <AssociationConnector Association="FITNESSModel.FK_DiseasesValue_Diseases" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FITNESSModel.Class" Width="1.5" PointX="10.125" PointY="4.375" />
+        <EntityTypeShape EntityType="FITNESSModel.Person" Width="1.5" PointX="12.375" PointY="6" />
+        <AssociationConnector Association="FITNESSModel.FK_Person_Account" />
+        <AssociationConnector Association="FITNESSModel.FK_Blank_Person" />
+        <AssociationConnector Association="FITNESSModel.FK_Person_Class" />
+        <EntityTypeShape EntityType="FITNESSModel.Characterisitc" Width="1.5" PointX="7.375" PointY="11.5" />
+        <EntityTypeShape EntityType="FITNESSModel.CharacteristicValue" Width="1.5" PointX="9.625" PointY="14.5" />
+        <EntityTypeShape EntityType="FITNESSModel.CurrentCharacteristicValue" Width="1.5" PointX="9.625" PointY="8.125" />
+        <AssociationConnector Association="FITNESSModel.FK_CurrentCharacteristicsValue_Blank1" />
+        <AssociationConnector Association="FITNESSModel.FK_BlankTypeCharacteristic_Characterisitcs1" />
+        <AssociationConnector Association="FITNESSModel.FK_CharacteristicValue_Characterisitc" />
+        <AssociationConnector Association="FITNESSModel.FK_CurrentCharacteristicValue_Characterisitc" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
