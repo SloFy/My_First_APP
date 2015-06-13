@@ -24,10 +24,11 @@
                                         <div class="col-lg-6">
                                             <div class="input-group">
                                                 <span class="input-group-addon">
-                                                    @Html.CheckBoxFor(m => m.b_answers[i])
+                                                    @Html.HiddenFor(m => m.s_answers[i])
+                                                    @Html.CheckBoxFor(m => m.b_answers[i], new { @class = "col-md-2 control-label" })
                                                 </span>
                                                 @Html.Label(curr_char_value.Value, new { @class = "form-control" })
-                                                @Html.HiddenFor(m => m.s_answers[i])
+                                               
                                             </div><!-- /input-group -->
                                         </div><!-- /.col-lg-6 -->
                                     </div><!-- /.row -->
@@ -39,9 +40,9 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon">
                                                     @Html.CheckBoxFor(m => m.b_answers[i], new { @class = "col-md-2 control-label" })
-                                                </span>
+                                                </span>                                               
+                                                @Html.Label(curr_char_value.Value,htmlAttributes: new { @class = "form-control", @style="width:70%"  })
                                                 @Html.TextBoxFor(m => m.s_answers[i], new { @class = "form-control" })
-                                                @Html.Label(curr_char_value.Value, new { @class = "form-control" })
                                             </div><!-- /input-group -->
                                         </div><!-- /.col-lg-6 -->
                                     </div><!-- /.row -->

@@ -6,7 +6,7 @@ using System.Web.Security;
 using System.Web.Mvc;
 using System.Data.Entity;
 using My_First_APP.Models;
-using My_First_APP.Util;
+
 using System.Data.Sql;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -100,6 +100,7 @@ namespace My_First_APP.Controllers
                     ModelState.AddModelError("", "Пользователь с таким логином уже существует");
                     if(user2!=null)
                     ModelState.AddModelError("", "Пользователь с такой почтой уже существует");
+                    
                 }
             }
             return View(model);
@@ -254,7 +255,7 @@ namespace My_First_APP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ManagePerson(Person model)
         {
-            
+            model.Id = db.Person.Max(m => m.Id) + 1;
             db.Person.Add(model);
             db.SaveChanges();
             return RedirectToAction("Manage", new { Message = ManageMessageId.ManagePersonSuccess });

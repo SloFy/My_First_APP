@@ -6,13 +6,16 @@
 }
 
 <h2>Анкеты, которые Вы заполняли:</h2>
-
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
 <p>
     <div class="btn btn-success">
-        @Html.ActionLink("Заполнить еще одну анкету", "Create")
+        @Html.ActionLink("Заполнить еще одну анкету", "", "Form")
         </div>
 
 </p>
+
 <table class="table">
       <tr>
             <th>
@@ -23,7 +26,7 @@
             </th>
             <th></th>
         </tr>
-
+    
         @foreach (var item in Model)
         {
             <tr>
@@ -38,10 +41,32 @@
                         @Html.ActionLink("Подробно", "Details", new { id = item.Id }) 
                         </div>
                     <div class="btn btn-danger">
-                        @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
-                        </div>
+    @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+    </div>
+                
+                    <div class="btn btn-danger">
+                        @Html.ActionLink("Удалить_modal", "_Delete", new { id = item.Id }, new { @class = "compItem" })
+                    </div>
 </td>
             </tr>
         }
 
     </table>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".compItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

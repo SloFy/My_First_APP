@@ -146,11 +146,39 @@ namespace My_First_APP.Controllers
             }
             return View(blank);
         }
+    [HttpGet]
+        public async Task<ActionResult> _Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Blank blank = await db.Blank.FindAsync(id);
+            if (blank == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(blank);
+        }
 
+        [HttpPost, ActionName("_Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> _Del(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Blank blank = await db.Blank.FindAsync(id);
+            db.CurrentCharacteristicsValue.RemoveRange(blank.CurrentCharacteristicsValue);
+            db.Blank.Remove(blank);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         // POST: Show/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
             Blank blank = await db.Blank.FindAsync(id);            
             db.CurrentCharacteristicsValue.RemoveRange(blank.CurrentCharacteristicsValue);

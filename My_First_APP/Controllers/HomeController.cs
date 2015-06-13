@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using My_First_APP.Models;
-using My_First_APP.Util;
+
 namespace My_First_APP.Controllers
 {
     public class HomeController : Controller
@@ -32,15 +32,6 @@ namespace My_First_APP.Controllers
             return "Спасибо";
         }
 
-        public ActionResult GetHtml()
-        {
-            return new HtmlResult("<h2>Привет мир!</h2>");
-        }
-        public ActionResult GetImage()
-        {
-            string path = "../Images/9T83tId5wws.jpg";
-            return new ImageResult(path);
-        }
 
         public FileResult GetFile()
         {

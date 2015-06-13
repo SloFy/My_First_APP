@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 using My_First_APP.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -39,8 +40,13 @@ namespace My_First_APP.Controllers
         }
 
         // GET: Input/Create/2
-        public ActionResult Create(int blank_type=2)
+        public ActionResult Create(int? blank_type)
         {
+            if (blank_type == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
             string login = User.Identity.GetUserName();
             Test first = new Test();
             first=first.Create_New_Blank(blank_type, login);

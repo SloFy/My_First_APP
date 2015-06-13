@@ -72,9 +72,6 @@ C:\Users\hunte_000\Documents\МИФИ\8 семестр\УИР\Book\My_First_APP\
 C:\Users\hunte_000\Documents\МИФИ\8 семестр\УИР\Book\My_First_APP\My_First_APP\obj\Debug\My_First_APP.csprojResolveAssemblyReference.cache
 C:\Users\hunte_000\Documents\МИФИ\8 семестр\УИР\Book\My_First_APP\My_First_APP\obj\Debug\My_First_APP.dll
 C:\Users\hunte_000\Documents\МИФИ\8 семестр\УИР\Book\My_First_APP\My_First_APP\obj\Debug\My_First_APP.pdb
-C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\My_First_APP.dll.config
-C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\My_First_APP.dll
-C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\My_First_APP.pdb
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\Antlr3.Runtime.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\EntityFramework.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\EntityFramework.SqlServer.dll
@@ -144,11 +141,14 @@ C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\My_First_APP.csprojResolveAssemblyReference.cache
-C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\My_First_APP.dll
-C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\My_First_APP.pdb
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Net.Http.Formatting.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.WebHost.dll
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Net.Http.Formatting.xml
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.xml
 C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\System.Web.Http.WebHost.xml
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\Control.dll.config
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\Control.dll
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\bin\Control.pdb
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\Control.dll
+C:\Users\Михаил\Documents\МИФИ\8 семестр\УИР\Last Verion\My_First_APP\My_First_APP\obj\Debug\Control.pdb

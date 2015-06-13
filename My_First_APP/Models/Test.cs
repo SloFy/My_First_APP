@@ -38,7 +38,7 @@ namespace My_First_APP.Models
             this.b_answers = b_answers;
             this.s_answers = s_answers;
         }
-        public Test Create_New_Blank(int blank_type,string login)
+        public Test Create_New_Blank(int? blank_type,string login)
         {
             Blank blank=new Blank();
             blank.BlankType = db.BlankType.Where(b => b.Id == blank_type).FirstOrDefault();                   

@@ -41,7 +41,12 @@ namespace My_First_APP.Models
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
 
-       
+        [Required]
+        [Compare("True",ErrorMessage="YTN")]
+        [Display(Name = "Я согласен на обработку моих персональных данных")]
+        public bool Confrim { get; set; }
+
+        public bool True { get; set; }
     }
     public class ForgotPasswordModel
     {

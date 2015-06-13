@@ -1,0 +1,46 @@
+﻿@model My_First_APP.Blank
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h3>Вы уверены, что хотите удалить заполненную анкету?</h3>
+    </div>
+
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BlankType.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BlankType.Name)
+                </dd>
+            </dl>
+
+            
+            
+            @using (Html.BeginForm("_Delete","Show",FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model=>model.Id)
+                <div class="form-actions no-color">
+                    <div class="btn btn-success">
+                        @Html.ActionLink("Обратно к списку", "Index")
+                    </div>
+                    <div class="btn btn-info">
+                        @Html.ActionLink("Подробнее об анкете", "Details", new { id = Model.Id })
+                    </div>
+                    <input type="submit" value="Удалить" class="btn btn-danger" />
+                </div>
+            }
+            
+        </div>
+</div>

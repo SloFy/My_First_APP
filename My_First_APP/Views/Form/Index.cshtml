@@ -4,23 +4,24 @@
     ViewBag.Title = "Выберите тестирование";
     Layout = "~/Views/Shared/_Layout.cshtml"; ;
 }
-
+<style>
+    .btn{
+        width: 350px; 
+    }
+</style>
 <h2>@ViewBag.Title.</h2>
 
 <h1 class="text-success">@ViewBag.StatusMessage</h1>
 
 @foreach (BlankType item in Model)
 {
-    using (Html.BeginForm("Create/" + item.Id, "Form", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-vertical", role = "form" }))
-    {@Html.AntiForgeryToken()
 
     <div class="form-group">
         <div class="btn btn-info">
-            @Html.ActionLink("Заполнить анкету "+item.Name, "Create", new { id = item.Id })
+            @Html.ActionLink("Заполнить анкету "+item.Name, "Create", new { blank_type = item.Id })
         </div>
     </div>
 
-    }
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
